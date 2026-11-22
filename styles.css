@@ -86,6 +86,10 @@ details[open] summary { border-color: var(--accent); color: var(--accent); margi
 details p { color: var(--muted); font-size: 14.5px; }
 
 .card-wide { grid-column: span 2; }
+.card-feature { grid-column: 1 / -1; border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.card-feature h3 { font-size: 15px; color: var(--accent); }
+.card-feature > p:first-of-type { font-size: 17px; max-width: 760px; }
+.card-feature .stats dd { font-size: 30px; }
 .card .stats-cap { font-size: 13px; color: var(--muted); margin: 0 0 4px; }
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 2px 0 14px; }
 .stats div { border-top: 1px solid var(--line); padding-top: 8px; }
