@@ -150,12 +150,68 @@
 
   <section id="building" aria-labelledby="building-h">
     <h2 id="building-h"><span class="kicker">03</span> Building AI</h2>
-    <p class="lede">Training and running models myself.</p>
+    <p class="lede">Experiments on models: training them, editing them and testing them, mostly on the M5.</p>
     <div class="grid">
+      <article class="card card-wide">
+        <h3>Distilling Gemma 26B into 12B</h3>
+        <p>Overnight on the M5: Gemma 4 26B translated 23,500 sentences into five languages, a quality filter kept 17,794,
+          and a LoRA taught Gemma 4 12B to translate like its teacher. 3.3 hours of training on one RTX 3090.</p>
+        <dl class="stats">
+          <div><dt>Inline tags kept</dt><dd>68% <span>&rarr;</span> 95%</dd></div>
+          <div><dt>Major errors</dt><dd>12.9% <span>&rarr;</span> 9.0%</dd></div>
+          <div><dt>Major errors, long paragraphs</dt><dd>23 <span>&rarr;</span> 13 of 40</dd></div>
+          <div><dt>chrF++</dt><dd>52.7 <span>&rarr;</span> 52.6</dd></div>
+        </dl>
+        <details><summary>Read</summary>
+          <p>Real gains where it mattered for translation work, flat on the classic metric, and still behind the teacher
+            (3.4% major errors). The cost was speed: 57 instead of 79 segments a minute while the adapter is applied at
+            run time. The 26B stays the better choice when the GPU can hold it; the distilled 12B is for when it can't,
+            or for one small adapter per customer.</p>
+        </details>
+      </article>
+      <article class="card card-wide">
+        <h3>Weight-space programming</h3>
+        <p>Editing a model's weights directly, with no training. I reproduced MIT's "Sparks of Weight-Space Programming"
+          on my own hardware, then tried the method on my own translation model.</p>
+        <dl class="stats">
+          <div><dt>MATH-500, Qwen 3.5 0.8B</dt><dd>6% <span>&rarr;</span> 44%</dd></div>
+          <div><dt>Weights changed</dt><dd>0.015%</dd></div>
+          <div><dt>Tags kept, Hy-MT2 1.8B</dt><dd>55% <span>&rarr;</span> 61%</dd></div>
+        </dl>
+        <details><summary>Read</summary>
+          <p>Step one: the paper's edit touches two tensors and is exactly rank one; the model writes a little less along
+            one direction. On the M5 it went from 6% to 44% on the same 50 problems, matching the published 44%. It got
+            19 right that the base model missed and lost none.</p>
+          <p>Step two: Claude Opus looked inside a 1.8B translation model, found two attention heads that write inline
+            tags, and doubled them. Segments with every tag intact went from 55.3% to 60.8%. A real, specific effect
+            (a random edit of the same size did nothing), but too small to ship.</p>
+        </details>
+      </article>
+      <article class="card card-wide">
+        <h3>Read-ahead translation</h3>
+        <p>Does reading the whole document first fix early translation guesses? A 60-segment guide with six traps the
+          document only explains later, like a job title that must be feminine or a currency named near the end, into
+          German and Japanese on six models.</p>
+        <p class="stats-cap">Traps translated right before the document explains them: a running conversation, then with the source read first.</p>
+        <dl class="stats">
+          <div><dt>Claude Sonnet</dt><dd>41% <span>&rarr;</span> 93%</dd></div>
+          <div><dt>Gemini</dt><dd>15% <span>&rarr;</span> 74%</dd></div>
+          <div><dt>Qwen 27B, local</dt><dd>9% <span>&rarr;</span> 64%</dd></div>
+          <div><dt>Claude Haiku + a check pass</dt><dd>50% <span>&rarr;</span> 100%</dd></div>
+        </dl>
+        <details><summary>Read</summary>
+          <p>A running conversation locks in its first guess and repeats it consistently, which only helps when the
+            guess was right; only Opus got by on the conversation alone. Reading the source first was the most reliable
+            fix, for 0 to 5% more cost. A final check pass suited strong instruction followers. Best value: Sonnet with
+            read-ahead at 93% for about four cents per language, or Haiku with the check pass at 100% for under a cent.
+            A small test: one document, two runs each.</p>
+        </details>
+      </article>
       <article class="card">
-        <h3>Translation fine-tuning lab</h3>
-        <p>QLoRA fine-tuning of open-weights models on real translation memory, entirely on one RTX 3090, to see how far
-          a local translation engine can go.</p>
+        <h3>First fine-tune</h3>
+        <p>QLoRA on a 9B model with real translation memory, on one RTX 3090. It improved in-domain English to Spanish
+          by 2.8 BLEU, and also started answering in Spanish when asked for French.</p>
+        <p class="verdict">Train every language pair together.</p>
       </article>
       <article class="card">
         <h3>Semantic translation memory</h3>
