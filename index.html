@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brent Summers</title>
+<meta name="description" content="Brent Summers builds translation software at Patois Labs, and a lot of other things with AI at home. These are the projects.">
+<meta property="og:title" content="Brent Summers">
+<meta property="og:description" content="Translation software at Patois Labs, and a lot of other things built with AI at home.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://brentmsummers.github.io/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("bms-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="name" href="#about">Brent Summers</a>
+  <nav aria-label="Sections">
+    <a href="#work">Patois Labs</a>
+    <a href="#built">Built with AI</a>
+    <a href="#building">Building AI</a>
+    <a href="#fun">For fun</a>
+  </nav>
+  <button class="theme" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch light or dark theme">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+  </button>
+</header>
+
+<main id="main">
+  <section id="about" class="about">
+    <h1>I build translation software, and a lot of other things with AI.</h1>
+    <p>I'm Brent. I've worked in localization on the vendor side at Intento and Lilt and on the client side at
+      LinkedIn and Cricut. Now I run <a href="https://patoislabs.com/">Patois Labs</a>, and most evenings I'm building
+      something with Claude on a server in my house. These are the projects.</p>
+    <p class="links">
+      <a href="https://github.com/brentmsummers">GitHub</a>
+      <a href="https://www.linkedin.com/in/brentmsummers">LinkedIn</a>
+      <a href="https://patoislabs.com/">Patois Labs</a>
+      <a href="mailto:brent@patoislabs.com">Email</a>
+    </p>
+  </section>
+
+  <section id="work" aria-labelledby="work-h">
+    <h2 id="work-h"><span class="kicker">01</span> Patois Labs</h2>
+    <p class="lede">What I build for work: open tools for translation.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Localization OS</h3>
+        <p>An open source, self-hosted translation management system that starts from machine translation. Translation
+          memory, glossaries, automated quality checks and workflows you describe in a sentence, on your own server.</p>
+        <p class="acts"><a href="https://patoislabs.com/">Open</a><a href="https://github.com/patois-labs/localization-os">Code</a></p>
+      </article>
+      <article class="card">
+        <h3>ChatterCAT</h3>
+        <p>A translator's editor you can talk to. Dictate a translation, or say a command to pull in a translation
+          memory match or machine translation, and keep your hands off the mouse.</p>
+        <p class="acts"><a href="https://chattercat.patoislabs.com/">Open</a></p>
+      </article>
+      <article class="card">
+        <h3>Bilingua</h3>
+        <p>File parsers for translation, in Rust. Open a Word document, a PO catalog, a subtitle file or an XLIFF, get
+          its translatable text with the formatting kept, and write the translation back into the same file.</p>
+        <p class="acts"><a href="https://github.com/patois-labs/bilingua">Code</a></p>
+      </article>
+      <article class="card">
+        <h3>Mallard</h3>
+        <p>Local-first meeting notes for Windows. It records your mic and the call as two tracks while you type
+          timestamped notes, then your own server transcribes it and writes the summary and action items.</p>
+        <details><summary>Read</summary>
+          <p>Everything is saved as Markdown you own, searchable by person, company and date. The transcription runs on
+            the same home server as everything else on this page, so no call audio leaves the house.</p>
+        </details>
+      </article>
+    </div>
+  </section>
+
+  <section id="built" aria-labelledby="built-h">
+    <h2 id="built-h"><span class="kicker">02</span> Built with AI</h2>
+    <p class="lede">Things I built with Claude, mostly for my own house.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Home Lab</h3>
+        <p>"Alexa, open home lab." Claude answers through my Echo, files to-dos and notes in my project tracker, reads
+          out what's due, changes items and undoes them. Say "systems check" and it checks every service I run in
+          under a second.</p>
+        <details><summary>Read</summary>
+          <p>A private Alexa skill points at a small service on my home server. Claude runs a short tool loop against
+            the tracker's API, and Alexa gets an answer in about two seconds, well inside its eight-second limit.
+            Anything that touches more than one thing waits for a spoken "yes", and that rule lives in code, not in
+            the prompt. Every change is logged with its undo, so "undo that" works even the next day.</p>
+          <p>The systems check skips Claude entirely: it probes the company sites, the apps and the home server in
+            parallel, and the answer it wants to give is "All systems are online and green."</p>
+        </details>
+      </article>
+      <article class="card">
+        <h3>The M5</h3>
+        <p>A small AMD Strix Halo box with 128 GB of memory and an RTX 3090 hanging off it by cable. It runs my
+          translation models, an embeddings server, a voice server, the project tracker and everything else here.</p>
+        <details><summary>Read</summary>
+          <p>The Localization OS translations in production come from open-weights models on this box, not from a cloud
+            AI service. It also runs speech recognition and text to speech for ChatterCAT, the transcription for
+            Mallard, and a live log of every model call. A daily job drains swap, and a health check pushes to my
+            phone when a disk fills or a service fails.</p>
+        </details>
+      </article>
+      <article class="card">
+        <h3>Kindle dashboard</h3>
+        <p>A jailbroken Kindle Paperwhite on my desk shows whether my sites are up, what I've spent on AI this month
+          and how the home server is doing, redrawn every five minutes.</p>
+        <details><summary>Read</summary>
+          <p>The server draws the page as an image from its monitoring data and the spend reports of each AI
+            provider. The Kindle pauses its own interface, fetches the image and sleeps between refreshes when it's on
+            battery. Tap the screen three times to get the Kindle back.</p>
+        </details>
+      </article>
+      <article class="card">
+        <h3>Coder comparison</h3>
+        <p>The same bug goes to three coding agents at once: a local Qwen model on my server, and two cloud agents,
+          each in its own copy of the repo. Claude Opus then reviews each attempt and writes up the good and the bad.</p>
+        <details><summary>Read</summary>
+          <p>Nothing gets merged; it's an evaluation. It answers a practical question: which work can a model running
+            in my house do as well as the cloud ones, and where does it still fall short.</p>
+        </details>
+      </article>
+      <article class="card">
+        <h3>Claude Launcher</h3>
+        <p>A desktop app that lists every project folder I have and starts Claude Code in any of them with one click,
+          in an embedded terminal I can theme.</p>
+        <p class="acts"><span class="tag">Electron</span></p>
+      </article>
+      <article class="card">
+        <h3>Car Scout</h3>
+        <p>A used-car deal scanner. It searched dealer inventory across five states for electrified three-row SUVs
+          under a price cap, then checked the warranty left for a second owner and whether it had captain's chairs.</p>
+      </article>
+      <article class="card">
+        <h3>Kalshi trading bot</h3>
+        <p>It streamed Bitcoin prices, spotted sharp five-second drops and bet against the next fifteen minutes on
+          Kalshi, with its own take-profit and stop-loss.</p>
+        <p class="verdict">It turns out building the functional trading bot is the easy part.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="building" aria-labelledby="building-h">
+    <h2 id="building-h"><span class="kicker">03</span> Building AI</h2>
+    <p class="lede">Training and running models myself.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Translation fine-tuning lab</h3>
+        <p>QLoRA fine-tuning of open-weights models on real translation memory, entirely on one RTX 3090, to see how far
+          a local translation engine can go.</p>
+      </article>
+      <article class="card">
+        <h3>Semantic translation memory</h3>
+        <p>Translation memory search by meaning instead of by matching characters, with a multilingual embeddings model
+          on the home server, added to Localization OS.</p>
+      </article>
+      <article class="card">
+        <h3>Model archive</h3>
+        <p>Archives Hugging Face model repos to cold storage one file at a time: download, check the hash, upload,
+          delete. A 100 GB model never needs 100 GB of free disk.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="fun" aria-labelledby="fun-h">
+    <h2 id="fun-h"><span class="kicker">04</span> For fun</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Get Ye Flask</h3>
+        <p>From 2019: a text remake of Homestar Runner's "Dungeon Master" in Python. You still can't get ye flask.</p>
+        <p class="acts"><a href="https://github.com/brentmsummers/Get-Ye-Flask">Code</a></p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Built with Claude. Hosted on GitHub Pages, so it stays up whatever else does.</p>
+</footer>
+
+<script>
+(function(){
+  var b=document.querySelector("[data-theme-toggle]"),r=document.documentElement;
+  function dark(){return r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches}
+  function sync(){b.setAttribute("aria-pressed",String(dark()))}
+  sync();
+  b.addEventListener("click",function(){r.dataset.theme=dark()?"light":"dark";try{localStorage.setItem("bms-theme",r.dataset.theme)}catch(e){}sync()});
+})();
+</script>
+</body>
+</html>
