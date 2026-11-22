@@ -99,8 +99,8 @@
         </details>
       </article>
       <article class="card">
-        <h3>The M5</h3>
-        <p>A small AMD Strix Halo box with 128 GB of memory and an RTX 3090 hanging off it by cable. It runs my
+        <h3>The Strix Halo</h3>
+        <p>My home AI server: a small box built on AMD's Strix Halo chip, with 128 GB of memory and an RTX 3090 hanging off it by cable. It runs my
           translation models, an embeddings server, a voice server, the project tracker and everything else here.</p>
         <details><summary>Read</summary>
           <p>The Localization OS translations in production come from open-weights models on this box, not from a cloud
@@ -150,7 +150,7 @@
 
   <section id="building" aria-labelledby="building-h">
     <h2 id="building-h"><span class="kicker">03</span> Building AI</h2>
-    <p class="lede">Experiments on models: training them, editing them and testing them, mostly on the M5.</p>
+    <p class="lede">Experiments on models: training them, editing them and testing them, mostly on the Strix Halo.</p>
     <div class="grid">
       <article class="card card-feature">
         <h3>Read-ahead translation</h3>
@@ -174,7 +174,7 @@
       </article>
       <article class="card card-wide">
         <h3>Distilling Gemma 26B into 12B</h3>
-        <p>Overnight on the M5: Gemma 4 26B translated 23,500 sentences into five languages, a quality filter kept 17,794,
+        <p>Overnight on the Strix Halo: Gemma 4 26B translated 23,500 sentences into five languages, a quality filter kept 17,794,
           and a LoRA taught Gemma 4 12B to translate like its teacher. 3.3 hours of training on one RTX 3090.</p>
         <dl class="stats">
           <div><dt>Inline tags kept</dt><dd>68% <span>&rarr;</span> 95%</dd></div>
@@ -200,7 +200,7 @@
         </dl>
         <details><summary>Read</summary>
           <p>Step one: the paper's edit touches two tensors and is exactly rank one; the model writes a little less along
-            one direction. On the M5 it went from 6% to 44% on the same 50 problems, matching the published 44%. It got
+            one direction. On the Strix Halo it went from 6% to 44% on the same 50 problems, matching the published 44%. It got
             19 right that the base model missed and lost none.</p>
           <p>Step two: Claude Opus looked inside a 1.8B translation model, found two attention heads that write inline
             tags, and doubled them. Segments with every tag intact went from 55.3% to 60.8%. A real, specific effect
